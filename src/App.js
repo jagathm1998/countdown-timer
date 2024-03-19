@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import InputForm from "./InputForm";
+import { useState } from "react";
+import CountdownTimer from "./CountdownTimer";
 
 function App() {
+  const [targetDate, setTargetDate] = useState(null);
+  const [countdownRunning, setCountdownRunning] = useState(false);
+
+  const toggleCountdown = () => {
+    setCountdownRunning((prev) => !prev);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Countdown Timer</h1>
+      <InputForm
+        setTargetDate={setTargetDate}
+        countdownRunning={countdownRunning}
+        toggleCountdown={toggleCountdown}
+      />
+      {targetDate && (
+        <CountdownTimer
+          targetDate={targetDate}
+          countdownRunning={countdownRunning}
+        />
+      )}
     </div>
   );
 }
